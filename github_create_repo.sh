@@ -43,6 +43,7 @@ gh-create() {
   echo -n "  Creating Github repository '$repo_name' ..."
   curl -u "$username:$token" https://api.github.com/user/repos -d '{"name":"'$repo_name'", "private":"true", "has_wiki":"true"}' > /dev/null 2>&1
   echo " done."
+
 #================
 # If you want to automatically send code to remote without being prompted; uncomment the following and comment the section below
 #================
