@@ -43,5 +43,35 @@ gh-create() {
   echo -n "  Creating Github repository '$repo_name' ..."
   curl -u "$username:$token" https://api.github.com/user/repos -d '{"name":"'$repo_name'", "private":"true", "has_wiki":"true"}' > /dev/null 2>&1
   echo " done."
+#================
+# If you want to automatically send code to remote without being prompted; uncomment the following and comment the section below
+#================
+ # echo -n "  Pushing local code to remote ..."
+ # git init
+ # git add .
+ # git commit
+ # git remote add origin $conn_string #> /dev/null 2>&1
+ # git push -u origin master #> /dev/null 2>&1
+ # echo " done."
 
+#================
+# If you want to be prompted to send code to remote after each repository creation; uncomment the following and comment the one above
+#================
+
+echo "  Would you like to push the current code to remote? \n"
+select yn in "Yes" "No"; do
+    case $yn in
+      Yes )  git init;
+      git add . ;
+      git commit;
+      git remote add origin $conn_string;
+      echo -n "  Pushing local code to remote ...";
+      git push -u origin master; echo " done.";
+      break;;
+
+      No ) exit;;
+    esac
+done
+
+#================
 }
